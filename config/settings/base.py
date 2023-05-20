@@ -73,6 +73,8 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "lms_ead.users",
+    "lms_ead.courses",
+    "lms_ead.home",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

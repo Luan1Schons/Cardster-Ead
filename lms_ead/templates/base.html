@@ -42,12 +42,12 @@
           <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <a class="navbar-brand" href="{% url 'home' %}">Lms Ead</a>
+          <a class="navbar-brand" href="{% url 'home:home' %}">Lms Ead</a>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="{% url 'home' %}">Home <span class="visually-hidden">(current)</span></a>
+                <a class="nav-link" href="{% url 'home:home' %}">Home <span class="visually-hidden">(current)</span></a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'about' %}">About</a>
@@ -91,7 +91,25 @@
       {% endif %}
 
       {% block content %}
-        <p>Use this document as a way to quick start any new project.</p>
+        <h1>Cursos</h1>
+        <p>Cursos disponíveis da Cardster</p>
+
+        <div class="row">
+          {% if courses %}
+          {% for course in courses%}
+          <div class="col-md-3">
+            <div class="card" style="width: 18rem;">
+              <img class="card-img-top" src="{% static 'uploads/courses/default.jpg' %}" alt="Course Image">
+              <div class="card-body">
+                <h5 class="card-title">{{ course.name }}</h5>
+                <p class="card-text">{{ course.description }}</p>
+                <a href="{% url 'courses:detail' pk=course.id %}" class="btn btn-primary" >Mais</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          {% endif %}
+        </div>
       {% endblock content %}
 
     </div> <!-- /container -->

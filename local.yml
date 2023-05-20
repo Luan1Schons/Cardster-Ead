@@ -21,6 +21,8 @@ services:
     ports:
       - '8000:8000'
     command: /start
+    networks:
+      - network-app
 
   postgres:
     build:
@@ -33,19 +35,37 @@ services:
       - lms_ead_local_postgres_data_backups:/backups
     env_file:
       - ./.envs/.local/.postgres
+    networks:
+      - network-app
 
-  docs:
-    image: lms_ead_local_docs
-    container_name: lms_ead_local_docs
-    build:
-      context: .
-      dockerfile: ./compose/local/docs/Dockerfile
-    env_file:
-      - ./.envs/.local/.django
-    volumes:
-      - ./docs:/docs:z
-      - ./config:/app/config:z
-      - ./lms_ead:/app/lms_ead:z
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@example.com"
+      PGADMIN_DEFAULT_PASSWORD: "PgAdmin2023"
     ports:
-      - '9000:9000'
-    command: /start-docs
+      - "16543:80"
+    depends_on:
+      - postgres
+    networks:
+      - network-app
+
+  # docs:
+  #  image: lms_ead_local_docs
+  #  container_name: lms_ead_local_docs
+  #  build:
+  #    context: .
+  #    dockerfile: ./compose/local/docs/Dockerfile
+  #  env_file:
+  #    - ./.envs/.local/.django
+  #  volumes:
+  #    - ./docs:/docs:z
+  #    - ./config:/app/config:z
+  #    - ./lms_ead:/app/lms_ead:z
+  #  ports:
+  #    - '9000:9000'
+  #  command: /start-docs
+
+networks: 
+  network-app:
+    driver: bridge
