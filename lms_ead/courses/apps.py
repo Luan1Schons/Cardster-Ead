@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 class CoursesConfig(AppConfig):
     name = "lms_ead.courses"
-    verbose_name = _("Courses")
+    verbose_name = _("Cursos")
 
     def ready(self):
         try:

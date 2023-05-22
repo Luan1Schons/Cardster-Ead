@@ -1,0 +1,14 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+    <h1>Admin Home</h1>
+
+    <form method="get">
+        {{ filter.form }}
+        <button type="submit">Pesquisar</button>
+    </form>
+
+    {% render_table table %}
+
+    {% include "django_tables2/bootstrap4.html" %}
+{% endblock content %}

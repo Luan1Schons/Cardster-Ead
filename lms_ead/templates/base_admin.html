@@ -37,7 +37,7 @@
   <body>
 
     <div class="mb-1">
-      <nav class="navbar navbar-expand-md navbar-light bg-light">
+      <nav class="navbar navbar-expand-md navbar-dark bg-primary">
         <div class="container-fluid">
           <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -49,27 +49,14 @@
               <li class="nav-item active">
                 <a class="nav-link" href="{% url 'home:home' %}">Home <span class="visually-hidden">(current)</span></a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'about' %}">Sobre</a>
-              </li>
               {% if request.user.is_authenticated %}
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'users:detail' request.user.pk %}">{% translate "Meu Perfil" %}</a>
-                </li>
-                <li class="nav-item">
-                  {# URL provided by django-allauth/account/urls.py #}
                   <a class="nav-link" href="{% url 'account_logout' %}">{% translate "Sair" %}</a>
                 </li>
               {% else %}
-                {% if ACCOUNT_ALLOW_REGISTRATION %}
-              <li class="nav-item">
-                {# URL provided by django-allauth/account/urls.py #}
-                <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% translate "Registro" %}</a>
-              </li>
-              {% endif %}
                 <li class="nav-item">
                   {# URL provided by django-allauth/account/urls.py #}
-                  <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% translate "Login" %}</a>
+                  <a id="log-in-link" class="nav-link" href="{% url 'admin:login' %}">{% translate "Login" %}</a>
                 </li>
               {% endif %}
             </ul>
@@ -91,25 +78,7 @@
       {% endif %}
 
       {% block content %}
-        <h1>Cursos</h1>
-        <p>Cursos disponíveis da Cardster</p>
-
-        <div class="row">
-          {% if courses %}
-          {% for course in courses %}
-          <div class="col-md-3">
-            <div class="card" style="width: 18rem;">
-              <img class="card-img-top" src="{% static 'uploads/courses/default.jpg' %}" alt="Course Image">
-              <div class="card-body">
-                <h5 class="card-title">{{ course.name }}</h5>
-                <p class="card-text">{{ course.description }}</p>
-                <a href="{% url 'courses:detail' pk=course.id %}" class="btn btn-primary" >Mais</a>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-          {% endif %}
-        </div>
+        
       {% endblock content %}
 
     </div> <!-- /container -->
